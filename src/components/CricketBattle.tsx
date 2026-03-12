@@ -44,6 +44,7 @@ export default function CricketBattle() {
           </a>
         </div>
       </div>
+      </div>
     </section>
   );
 }
