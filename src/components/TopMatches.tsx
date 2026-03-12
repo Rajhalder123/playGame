@@ -90,8 +90,7 @@ const matchesData = [
 
 export default function TopMatches() {
   return (
-    <section className="pt-2 pb-6">
-      <div className="max-w-[1600px] mx-auto px-4 lg:px-6">
+    <section className="px-4 py-6">
       <div className="flex items-center gap-3 mb-5">
         <div className="w-1 h-8 bg-brand-lime rounded-full" />
         <h2 className="text-2xl md:text-3xl font-extrabold text-white uppercase tracking-wide">
@@ -104,7 +103,6 @@ export default function TopMatches() {
         {matchesData.map((match, index) => (
           <MatchCard key={index} {...match} />
         ))}
-      </div>
       </div>
     </section>
   );

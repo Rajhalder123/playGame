@@ -2,8 +2,7 @@ import Image from "next/image";
 
 export default function HeroBanners() {
   return (
-    <section className="max-w-[1600px] mx-auto px-4 lg:px-6 py-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
       {/* Bonus Banner */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-dark via-brand-green/60 to-brand-dark min-h-[280px] group cursor-pointer">
         <Image
@@ -67,7 +66,6 @@ export default function HeroBanners() {
             </svg>
           </a>
         </div>
-      </div>
       </div>
     </section>
   );

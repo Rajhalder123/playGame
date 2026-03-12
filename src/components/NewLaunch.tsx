@@ -69,8 +69,7 @@ export default function NewLaunch() {
   }, [isPaused, scrollByAmount]);
 
   return (
-    <section className="py-6">
-      <div className="max-w-[1600px] mx-auto px-4 lg:px-6">
+    <section className="px-4 py-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div>
@@ -148,7 +147,6 @@ export default function NewLaunch() {
             </div>
           </a>
         ))}
-      </div>
       </div>
     </section>
   );

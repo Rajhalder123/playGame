@@ -2,8 +2,7 @@ import Image from "next/image";
 
 export default function CricketBattle() {
   return (
-    <section className="py-6">
-      <div className="max-w-[1600px] mx-auto px-4 lg:px-6">
+    <section className="px-4 py-6">
       <div className="flex items-center gap-3 mb-5">
         <div className="w-1 h-8 bg-brand-gold rounded-full" />
         <h2 className="text-2xl md:text-3xl font-extrabold text-white uppercase tracking-wide">
@@ -43,7 +42,6 @@ export default function CricketBattle() {
             </svg>
           </a>
         </div>
-      </div>
       </div>
     </section>
   );
