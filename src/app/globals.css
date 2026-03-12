@@ -1,26 +1,91 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-brand-dark: #0a0f0a;
+  --color-brand-darker: #060906;
+  --color-brand-green: #1b5e20;
+  --color-brand-green-light: #2e7d32;
+  --color-brand-lime: #c6ff00;
+  --color-brand-accent: #4caf50;
+  --color-brand-teal: #0d3d2e;
+  --color-brand-card: #0f2b1a;
+  --color-brand-card-hover: #143a22;
+  --color-brand-gold: #ffd700;
+  --color-brand-yellow: #ffeb3b;
+  --color-brand-surface: #111b11;
+  --color-brand-border: #1e4d2b;
+  --color-brand-muted: #8a9a8a;
+  --color-brand-nav: #0d1f12;
+  --color-brand-sidebar: #0b1a0e;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-brand-dark);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-brand-darker);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-brand-green);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brand-accent);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #ffd700, #ffeb3b, #ffa000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .glow-green {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
