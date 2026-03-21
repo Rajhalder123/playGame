@@ -16,6 +16,7 @@ playadda-frontend/tsconfig.tsbuildinfo
 playadda-backend/node_modules/
 playadda-backend/dist/
 playadda-backend/.env
+playadda-backend/pg_portable/
 
 # ===========================
 # General
