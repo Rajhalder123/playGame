@@ -22,5 +22,13 @@
     "paths": {
       "@/*": ["src/*"]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "pg_portable",
+    "test",
+    "coverage"
+  ],
+  "include": ["src/**/*"]
 }

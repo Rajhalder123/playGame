@@ -18,7 +18,8 @@ import { WalletEntity } from '../wallet/entities/wallet.entity';
       useFactory: (configService: ConfigService) => ({
         secret: configService.getOrThrow<string>('JWT_SECRET'),
         signOptions: {
-          expiresIn: configService.get<string>('JWT_EXPIRES_IN', '7d'),
+          // Cast needed: @nestjs/jwt v10 uses 'ms' StringValue type but accepts string at runtime
+          expiresIn: (configService.get<string>('JWT_EXPIRES_IN', '7d') as unknown) as number,
         },
       }),
     }),

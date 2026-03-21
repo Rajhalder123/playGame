@@ -30,11 +30,14 @@ export class EventsGateway
   constructor(private readonly redisService: RedisService) {}
 
   onModuleInit() {
+    if (!this.redisService.isEnabled()) {
+      this.logger.warn('Redis disabled — WebSocket real-time odds broadcast is inactive');
+      return;
+    }
     // Subscribe to all odds update channels using pattern matching
     void this.redisService.psubscribe('odds:*', (channel: string, message: string) => {
       try {
         const data = JSON.parse(message) as { matchId: string; [key: string]: unknown };
-        // Broadcast to all clients subscribed to this match room
         this.server.to(`match:${data.matchId}`).emit('odds:update', data);
         this.logger.verbose(`Broadcast odds update → match:${data.matchId}`);
       } catch (err) {

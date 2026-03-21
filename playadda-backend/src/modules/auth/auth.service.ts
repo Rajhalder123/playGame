@@ -33,7 +33,7 @@ export class AuthService {
     }
 
     // Hash password
-    const rounds = this.configService.get<number>('BCRYPT_ROUNDS', 12);
+    const rounds = parseInt(this.configService.get<string>('BCRYPT_ROUNDS', '12'), 10);
     const password_hash = await bcrypt.hash(dto.password, rounds);
 
     // Generate unique referral code
