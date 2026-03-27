@@ -5,11 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MatchEntity } from '../odds/entities/match.entity';
 import { OddsEntity } from '../odds/entities/odds.entity';
 import { BetEntity } from '../betting/entities/bet.entity';
+import { UserEntity } from '../user/entities/user.entity';
+import { WalletEntity } from '../wallet/entities/wallet.entity';
 import { WalletModule } from '../wallet/wallet.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([MatchEntity, OddsEntity, BetEntity]),
+    TypeOrmModule.forFeature([MatchEntity, OddsEntity, BetEntity, UserEntity, WalletEntity]),
     WalletModule,
   ],
   controllers: [AdminController],

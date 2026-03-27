@@ -22,6 +22,8 @@ import { OddsModule } from './modules/odds/odds.module';
 import { BettingModule } from './modules/betting/betting.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { EventsModule } from './modules/events/events.module';
+import { CasinoModule } from './modules/casino/casino.module';
+import { SportsProviderModule } from './modules/sports-provider/sports-provider.module';
 
 @Module({
   imports: [
@@ -57,6 +59,8 @@ import { EventsModule } from './modules/events/events.module';
     BettingModule,
     AdminModule,
     EventsModule,
+    CasinoModule,
+    SportsProviderModule,
   ],
 
   providers: [

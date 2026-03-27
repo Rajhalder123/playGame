@@ -7,6 +7,7 @@ import { TransactionEntity } from '../modules/wallet/entities/transaction.entity
 import { MatchEntity } from '../modules/odds/entities/match.entity';
 import { OddsEntity } from '../modules/odds/entities/odds.entity';
 import { BetEntity } from '../modules/betting/entities/bet.entity';
+import { CasinoSessionEntity } from '../modules/casino/entities/casino-session.entity';
 
 @Injectable()
 export class DatabaseConfig implements TypeOrmOptionsFactory {
@@ -27,6 +28,7 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
         MatchEntity,
         OddsEntity,
         BetEntity,
+        CasinoSessionEntity,
       ],
       synchronize: this.configService.get<string>('DB_SYNC', 'false') === 'true',
       logging: this.configService.get<string>('DB_LOGGING', 'false') === 'true',

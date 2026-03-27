@@ -7,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import { UserEntity } from '../user/entities/user.entity';
 import { WalletEntity } from '../wallet/entities/wallet.entity';
+import { TransactionEntity, TransactionType } from '../wallet/entities/transaction.entity';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 
@@ -17,6 +18,8 @@ export class AuthService {
     private readonly userRepo: Repository<UserEntity>,
     @InjectRepository(WalletEntity)
     private readonly walletRepo: Repository<WalletEntity>,
+    @InjectRepository(TransactionEntity)
+    private readonly transactionRepo: Repository<TransactionEntity>,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
   ) {}
@@ -39,15 +42,18 @@ export class AuthService {
     // Generate unique referral code
     const referral_code = this.generateReferralCode();
 
+    // Resolve referral code to referrer's user ID
+    const referrerId = dto.referral_code
+      ? await this.findUserIdByReferralCode(dto.referral_code)
+      : null;
+
     // Create user
     const user = this.userRepo.create({
       email: dto.email.toLowerCase().trim(),
       username: dto.username.trim(),
       password_hash,
       referral_code,
-      referred_by: dto.referral_code
-        ? await this.findUserIdByReferralCode(dto.referral_code)
-        : null,
+      referred_by: referrerId,
     });
     const savedUser = await this.userRepo.save(user);
 
@@ -58,6 +64,29 @@ export class AuthService {
       locked_balance: '0',
     });
     await this.walletRepo.save(wallet);
+
+    // ── Referral bonus: credit 100 to referrer's wallet ───────────
+    if (referrerId) {
+      const REFERRAL_BONUS = 100;
+      const referrerWallet = await this.walletRepo.findOne({ where: { user_id: referrerId } });
+      if (referrerWallet) {
+        const balBefore = parseFloat(referrerWallet.balance);
+        referrerWallet.balance = (balBefore + REFERRAL_BONUS).toFixed(8);
+        await this.walletRepo.save(referrerWallet);
+        // Record the bonus transaction
+        await this.transactionRepo.save(
+          this.transactionRepo.create({
+            wallet_id: referrerWallet.id,
+            type: TransactionType.REFERRAL_BONUS,
+            amount: REFERRAL_BONUS.toFixed(8),
+            balance_before: balBefore.toFixed(8),
+            balance_after: referrerWallet.balance,
+            reference_id: savedUser.id,
+            note: `Referral bonus for inviting ${savedUser.username}`,
+          }),
+        );
+      }
+    }
 
     const access_token = this.signToken(savedUser);
     return { access_token, user: this.sanitizeUser(savedUser) };

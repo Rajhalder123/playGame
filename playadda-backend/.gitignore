@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+dist/
+
+# Environment
+.env
+.env.test
+
+# Portable database (do NOT commit — very large)
+pg_portable/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Coverage
+coverage/
+
+# Build cache
+.tsbuildinfo
+tsconfig.build.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

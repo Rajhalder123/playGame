@@ -8,6 +8,7 @@ import TradingGames from "@/components/TradingGames";
 import RecommendedGames from "@/components/RecommendedGames";
 import LiveCasinoGames from "@/components/LiveCasinoGames";
 import Footer from "@/components/Footer";
+import AuthModal from "@/components/AuthModal";
 
 export default function Home() {
   return (
@@ -34,6 +35,9 @@ export default function Home() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Auth Modal — rendered on top of everything */}
+      <AuthModal />
     </div>
   );
 }

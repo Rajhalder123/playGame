@@ -1,8 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Patch } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { UserEntity } from './entities/user.entity';
 import { UserService } from './user.service';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @ApiTags('Users')
 @ApiBearerAuth('JWT')
@@ -13,9 +14,16 @@ export class UserController {
   @Get('me')
   @ApiOperation({ summary: 'Get current user profile' })
   @ApiResponse({ status: 200, description: 'Returns user profile (no password_hash)' })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
   getProfile(@CurrentUser() user: UserEntity) {
     return this.userService.findById(user.id);
+  }
+
+  @Patch('me')
+  @ApiOperation({ summary: 'Update current user profile (username)' })
+  @ApiResponse({ status: 200, description: 'Updated profile returned' })
+  @ApiResponse({ status: 409, description: 'Username already taken' })
+  updateProfile(@CurrentUser() user: UserEntity, @Body() dto: UpdateUserDto) {
+    return this.userService.updateProfile(user.id, dto);
   }
 
   @Get('referrals')
